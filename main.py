@@ -1,20 +1,29 @@
-# for triangles (LEDs 1 and 2)
+import time
 import RPi.GPIO as GPIO
-from time import sleep
-
 GPIO.setmode(GPIO.BCM)
-p = 4
-GPIO.setup(p, GPIO.OUT)
 
-pwm = GPIO.PWM(p, 100) # create PWM object @ 100 Hz
-try:
-  pwm.start(0) # initiate PWM at 0% duty cycle
-  while 1:
-    for dc in range(100,0): # loop duty cycle from 0 to 100 b
-      pwm.ChangeDutyCycle(dc) # set duty cycle
-      sleep(0.01) # sleep 10 ms
-except KeyboardInterrupt: # stop gracefully on ctrl-C
-  print('\nExiting')
+btn_input = 4;
+LED_output = 17;
 
-pwm.stop()
-GPIO.cleanup()
+# GPIO btn_input set up as input.
+GPIO.setup(btn_input, GPIO.IN)
+GPIO.setup(LED_output, GPIO.OUT)
+
+# handle the button event
+def buttonEventHandler_rising (pin):
+    # turn LED on
+    GPIO.output(LED_output,True)
+    
+def buttonEventHandler_falling (pin):
+    # turn LED off
+    GPIO.output(LED_output,False)
+
+
+	
+GPIO.add_event_detect(btn_input, GPIO.RISING, callback=buttonEventHandler_rising) 
+GPIO.add_event_detect(btn_input, GPIO.FALLING, callback=buttonEventHandler_falling)
+ 
+try:  
+    while True : pass  
+except:
+    GPIO.cleanup()      
