@@ -11,6 +11,7 @@ gpio.setup(in2, gpio.IN, pull_up_down=gpio.PUD_DOWN) # Set pin 21 to be an input
 gpio.setup(led1, gpio.OUT)
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
+from time import sleep
 
 def button_callback(channel):
     print("Button was pushed on pin %d" % channel)
