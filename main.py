@@ -24,7 +24,7 @@ def button_callback(channel):
     global button1pressed 
     button1pressed = not button1pressed
 
-    while button1pressed == True:
+    if button1pressed == True:
       pwm1.start(0) # initiate PWM at 0% duty cycle
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm1.ChangeDutyCycle(dc) # set duty cycle
@@ -42,7 +42,7 @@ def button_callback(channel):
     global button2pressed 
     button2pressed = not button2pressed
 
-    while button2pressed == True:
+    if button2pressed == True:
       pwm2.start(0) # initiate PWM at 0% duty cycle
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm2.ChangeDutyCycle(dc) # set duty cycle
