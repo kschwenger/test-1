@@ -22,18 +22,19 @@ def button_callback(channel):
   buttonpressed = not buttonpressed
 
   if buttonpressed == True:
+    print("LED is on")
     pwm.start(0) # initiate PWM at 0% duty cycle
     for dc in range(101): # loop duty cycle from 0 to 100
       pwm.ChangeDutyCycle(dc) # set duty cycle
       sleep(0.01) # sleep 10 ms
-    sleep(.2)
+    sleep(.1)
     pwm.start(100)
     for dc in range(100,-1,-1):
       pwm.ChangeDutyCycle(dc)
       sleep(0.01)
-    sleep(.2)
+    sleep(.1)
   if buttonpressed == False:
-    pass
+    print("LED is off")
 
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 on BOTH
