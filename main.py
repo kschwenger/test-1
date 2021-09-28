@@ -1,6 +1,6 @@
 import RPi.GPIO as gpio # Import Raspberry Pi GPIO library
 in1, in2 = 20, 21
-led1, led2, led3 = 4, 17, 27
+led1, led2, led3 = 4, 27, 13
 gpio.setmode(gpio.BCM) # Use physical pin numbering
 gpio.setup(led1, gpio.OUT)
 gpio.setup(led2, gpio.OUT)
