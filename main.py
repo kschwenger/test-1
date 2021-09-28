@@ -21,43 +21,28 @@ def button_callback(channel):
   print("Button was switched for pin %d" % channel)
 
   if channel == in1:
-    global button1pressed 
-    button1pressed = not button1pressed
-
-    if button1pressed == True:
-      pwm1.start(0) # initiate PWM at 0% duty cycle
+    pwm1.start(0) # initiate PWM at 0% duty cycle
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm1.ChangeDutyCycle(dc) # set duty cycle
         sleep(0.01) # sleep 10 ms
-      
       pwm1.start(100)
       for dc in range(100,-1,-1):
         pwm1.ChangeDutyCycle(dc)
         sleep(0.01)
-      
-    if button1pressed == False:
-      pass
   
   elif channel == in2:
-    global button2pressed 
-    button2pressed = not button2pressed
-
-    if button2pressed == True:
       pwm2.start(0) # initiate PWM at 0% duty cycle
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm2.ChangeDutyCycle(dc) # set duty cycle
         sleep(0.01) # sleep 10 ms
-      
       pwm2.start(100)
       for dc in range(100,-1,-1):
         pwm2.ChangeDutyCycle(dc)
         sleep(0.01)
-      
-    if button2pressed == False:
-      pass
 
-gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 on BOTH
-gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 on BOTH
+
+gpio.add_event_detect(in1,gpio.RISING,callback=button_callback) # Setup event on pin 20 on RISING
+gpio.add_event_detect(in2,gpio.RISING,callback=button_callback) # Setup event on pin 21 on RISING
 
 # continually blink led 3 at 1 hz unless keyboard interrupt
 try:
