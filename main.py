@@ -1,5 +1,5 @@
 import RPi.GPIO as gpio # Import Raspberry Pi GPIO library
-
+from time import sleep
 gpio.setwarnings(False) # Ignore warning for now
 
 in1, in2 = 20, 21
@@ -15,6 +15,8 @@ gpio.setup(led3, gpio.OUT)
 def button_callback(channel):
     print("Button was switched on pin %d" % channel)
     gpio.output(led1, 1)
+    sleep(.25)
+    gpio.ouput(led2, 0)
 
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
@@ -22,5 +24,5 @@ gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on p
 
 
 message = input("Press enter to quit\n\n") # Run until someone presses enter
-gpio.output(led1, 1)
+
 gpio.cleanup() # Clean up
