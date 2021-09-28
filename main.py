@@ -12,8 +12,8 @@ gpio.setup(led1, gpio.OUT)      # set led pins as output pins
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
 
-pwm1 = gpio.PWM(led1, 1) # create PWM object @ 1 Hz for both leds
-pwm2 = gpio.PWM(led2, 1) 
+pwm1 = gpio.PWM(led1, 100) # create PWM object @ 1 Hz for both leds
+pwm2 = gpio.PWM(led2, 100) 
 
 def button_callback(channel): # callback function for triangle waveforms when button is pressed
 
