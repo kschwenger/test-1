@@ -12,13 +12,20 @@ gpio.setup(led1, gpio.OUT)
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
 
+pwm = GPIO.PWM(led1, 100) # create PWM object @ 100 Hz
+
 def button_callback(channel):
-    print("Button was switched on pin %d" % channel)
-    gpio.output(led1, 1)
+  print("Button was switched on pin %d" % channel)
+  pwm.start(0) # initiate PWM at 0% duty cycle
+  while 1:
+    for dc in range(101): # loop duty cycle from 0 to 100
+      pwm.ChangeDutyCycle(dc) # set duty cycle
+      sleep(0.01) # sleep 10 ms
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
 gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 rising edge
 
+# continually blink led 3 at 1 hz unless keyboard interrupt
 try:
   while True:
     gpio.output(led3, 0)
