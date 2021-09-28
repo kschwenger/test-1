@@ -11,19 +11,18 @@ gpio.setup(in2, gpio.IN, pull_up_down=gpio.PUD_DOWN) # Set pin 21 to be an input
 gpio.setup(led1, gpio.OUT)
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
-from time import sleep
 
 def button_callback(channel):
     print("Button was pushed on pin %d" % channel)
     gpio.output(led1, 1)
-    sleep(.5)
-    gpio.output(led1, 0)
 
 
 gpio.add_event_detect(in1,gpio.RISING,callback=button_callback) # Setup event on pin 20 rising edge
-gpio.add_event_detect(in2,gpio.RISING,callback=button_callback) # Setup event on pin 20 rising edge
+gpio.add_event_detect(in1,gpio.FALLING,callback=button_callback) # Setup event on pin 20 falling edge
+
+gpio.add_event_detect(in2,gpio.RISING,callback=button_callback) # Setup event on pin 21 rising edge
 
 
 message = input("Press enter to quit\n\n") # Run until someone presses enter
-
+gpio.output(led1, 1)
 gpio.cleanup() # Clean up
