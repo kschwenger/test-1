@@ -1,29 +1,9 @@
-import time
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-
-btn_input = 4;
-LED_output = 17;
-
-# GPIO btn_input set up as input.
-GPIO.setup(btn_input, GPIO.IN)
-GPIO.setup(LED_output, GPIO.OUT)
-
-# handle the button event
-def buttonEventHandler_rising (pin):
-    # turn LED on
-    GPIO.output(LED_output,True)
-    
-def buttonEventHandler_falling (pin):
-    # turn LED off
-    GPIO.output(LED_output,False)
-
-
-	
-GPIO.add_event_detect(btn_input, GPIO.RISING, callback=buttonEventHandler_rising) 
-GPIO.add_event_detect(btn_input, GPIO.FALLING, callback=buttonEventHandler_falling)
- 
-try:  
-    while True : pass  
-except:
-    GPIO.cleanup()      
+import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+def button_callback(channel):
+    print("Button was pushed!")
+GPIO.setwarnings(False) # Ignore warning for now
+GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
+GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 10 to be an input pin and set initial value to be pulled low (off)
+GPIO.add_event_detect(20,GPIO.RISING,callback=button_callback) # Setup event on pin 10 rising edge
+message = input("Press enter to quit\n\n") # Run until someone presses enter
+GPIO.cleanup() # Clean up
