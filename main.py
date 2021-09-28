@@ -20,10 +20,12 @@ def button_callback(channel):
   for dc in range(101): # loop duty cycle from 0 to 100
     pwm.ChangeDutyCycle(dc) # set duty cycle
     sleep(0.01) # sleep 10 ms
+  sleep(.2)
   pwm.start(100)
   for dc in range(100,0):
     pwm.ChangeDutyCycle(dc)
     sleep(0.01)
+  sleep(.2)
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
 gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 rising edge
