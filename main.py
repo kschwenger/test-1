@@ -22,13 +22,13 @@ def button_callback(channel):
 
   if channel == in1:
     pwm1.start(0) # initiate PWM at 0% duty cycle
-      for dc in range(101): # loop duty cycle from 0 to 100
-        pwm1.ChangeDutyCycle(dc) # set duty cycle
-        sleep(0.01) # sleep 10 ms
-      pwm1.start(100)
-      for dc in range(100,-1,-1):
-        pwm1.ChangeDutyCycle(dc)
-        sleep(0.01)
+    for dc in range(101): # loop duty cycle from 0 to 100
+      pwm1.ChangeDutyCycle(dc) # set duty cycle
+      sleep(0.01) # sleep 10 ms
+    pwm1.start(100)
+    for dc in range(100,-1,-1):
+      pwm1.ChangeDutyCycle(dc)
+      sleep(0.01)
   
   elif channel == in2:
       pwm2.start(0) # initiate PWM at 0% duty cycle
