@@ -12,7 +12,7 @@ gpio.setup(led1, gpio.OUT)
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
 
-pwm = GPIO.PWM(led1, 100) # create PWM object @ 100 Hz
+pwm = gpio.PWM(led1, 100) # create PWM object @ 100 Hz
 
 def button_callback(channel):
   print("Button was switched on pin %d" % channel)
