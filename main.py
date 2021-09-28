@@ -16,14 +16,18 @@ def button_callback(channel):
     print("Button was switched on pin %d" % channel)
     gpio.output(led1, 1)
 
-gpio.output(led3, 1)
-sleep(.5)
-gpio.output(led3, 0)
-
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
 gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 rising edge
 
-
-message = input("Press enter to quit\n\n") # Run until someone presses enter
+try:
+  while True:
+    gpio.output(led3, 0)
+    sleep(0.5)
+    gpio.output(led3, 1)
+    sleep(0.5)
+except KeyboardInterrupt: # if user hits ctrl-C
+  print('\nExiting')
+except Exception as e: # catch all other errors
+  print('\ne')
 
 gpio.cleanup() # Clean up
