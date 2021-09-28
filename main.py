@@ -11,6 +11,7 @@ def button_callback(pin, channel):
     gpio.output(pin, 1)
 gpio.setwarnings(False) # Ignore warning for now
 gpio.setup(in1, gpio.IN, pull_up_down=gpio.PUD_DOWN) # Set pin 20 to be an input pin and set initial value to be pulled low (off)
+gpio.setup(in2, gpio.IN, pull_up_down=gpio.PUD_DOWN) # Set pin 20 to be an input pin and set initial value to be pulled low (off)
 
 gpio.add_event_detect(in2,gpio.RISING,callback=button_callback) # Setup event on pin 20 rising edge
 
