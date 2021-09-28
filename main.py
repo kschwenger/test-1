@@ -2,6 +2,7 @@ import RPi.GPIO as gpio # Import Raspberry Pi GPIO library
 from time import sleep
 gpio.setwarnings(False) # Ignore warning for now
 
+buttonpressed = False
 in1, in2 = 20, 21
 led1, led2, led3 = 4, 27, 13
 
@@ -15,20 +16,27 @@ gpio.setup(led3, gpio.OUT)
 pwm = gpio.PWM(led1, 100) # create PWM object @ 100 Hz
 
 def button_callback(channel):
-  print("Button was switched on pin %d" % channel)
-  pwm.start(0) # initiate PWM at 0% duty cycle
-  for dc in range(101): # loop duty cycle from 0 to 100
-    pwm.ChangeDutyCycle(dc) # set duty cycle
-    sleep(0.01) # sleep 10 ms
-  sleep(.2)
-  pwm.start(100)
-  for dc in range(100,-1,-1):
-    pwm.ChangeDutyCycle(dc)
-    sleep(0.01)
-  sleep(.2)
+  print("Button was switched for pin %d" % channel)
 
-gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
-gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 rising edge
+  buttonpressed = not buttonpressed
+
+  if buttonpressed == True:
+    pwm.start(0) # initiate PWM at 0% duty cycle
+    for dc in range(101): # loop duty cycle from 0 to 100
+      pwm.ChangeDutyCycle(dc) # set duty cycle
+      sleep(0.01) # sleep 10 ms
+    sleep(.2)
+    pwm.start(100)
+    for dc in range(100,-1,-1):
+      pwm.ChangeDutyCycle(dc)
+      sleep(0.01)
+    sleep(.2)
+  if buttonpressed == False:
+    pass
+
+    
+gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 on BOTH
+gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 on BOTH
 
 # continually blink led 3 at 1 hz unless keyboard interrupt
 try:
