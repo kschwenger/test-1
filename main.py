@@ -1,9 +1,7 @@
-import RPi.GPIO as gpio # Import Raspberry Pi GPIO library
+import RPi.GPIO as gpio # Import Raspberry Pi GPIO library and sleep function
 from time import sleep
-gpio.setwarnings(False) # Ignore warning for now
 
-button1pressed = False
-button2pressed = False
+# declare variables
 in1, in2 = 20, 21
 led1, led2, led3 = 4, 27, 13
 
@@ -14,33 +12,33 @@ gpio.setup(led1, gpio.OUT)      # set led pins as output pins
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
 
-pwm1 = gpio.PWM(led1, 1) # create PWM object @ 100 Hz for both leds
+pwm1 = gpio.PWM(led1, 1) # create PWM object @ 1 Hz for both leds
 pwm2 = gpio.PWM(led2, 1) 
 
-def button_callback(channel):
-  if channel == in1:
+def button_callback(channel): # callback function for triangle waveforms when button is pressed
+
+  if channel == in1:  # if button one is pressed
     pwm1.start(0) # initiate PWM at 0% duty cycle
     for dc in range(101): # loop duty cycle from 0 to 100
       pwm1.ChangeDutyCycle(dc) # set duty cycle
       sleep(0.01) # sleep 10 ms
-    pwm1.start(100)
-    for dc in range(100,-1,-1):
+    pwm1.start(100) # initiate pwm at 100% duty cycle
+    for dc in range(100,-1,-1): # loop duty cycle from 100 to 0
       pwm1.ChangeDutyCycle(dc)
       sleep(0.01)
   
-  if channel == in2:
-      pwm2.start(0) # initiate PWM at 0% duty cycle
-      for dc in range(101): # loop duty cycle from 0 to 100
-        pwm2.ChangeDutyCycle(dc) # set duty cycle
-        sleep(0.01) # sleep 10 ms
+  if channel == in2:  # if button 2 is pressed
+      pwm2.start(0) 
+      for dc in range(101): 
+        pwm2.ChangeDutyCycle(dc) 
+        sleep(0.01) 
       pwm2.start(100)
-      for dc in range(100,-1,-1):
+      for dc in range(100,-1,-1): 
         pwm2.ChangeDutyCycle(dc)
         sleep(0.01)
 
-
-gpio.add_event_detect(in1,gpio.RISING,callback=button_callback) # Setup event on pin 20 on RISING
-gpio.add_event_detect(in2,gpio.RISING,callback=button_callback) # Setup event on pin 21 on RISING
+gpio.add_event_detect(in1,gpio.RISING,callback=button_callback) # Setup event on pin 20 for RISING detection
+gpio.add_event_detect(in2,gpio.RISING,callback=button_callback) # Setup event on pin 21 for RISING detection
 
 # continually blink led 3 at 1 hz unless keyboard interrupt
 try:
