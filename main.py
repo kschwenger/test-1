@@ -16,10 +16,9 @@ def button_callback(channel):
     print("Button was switched on pin %d" % channel)
     gpio.output(led1, 1)
 
-while True:
-  gpio.output(led3, 1)
-  sleep(.5)
-  gpio.output(led3, 0)
+gpio.output(led3, 1)
+sleep(.5)
+gpio.output(led3, 0)
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
 gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 rising edge
