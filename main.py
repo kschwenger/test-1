@@ -29,12 +29,12 @@ def button_callback(channel):
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm1.ChangeDutyCycle(dc) # set duty cycle
         sleep(0.01) # sleep 10 ms
-      sleep(.05)
+      
       pwm1.start(100)
       for dc in range(100,-1,-1):
         pwm1.ChangeDutyCycle(dc)
         sleep(0.01)
-      sleep(.05)
+      
     if button1pressed == False:
       pass
   
@@ -47,12 +47,12 @@ def button_callback(channel):
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm2.ChangeDutyCycle(dc) # set duty cycle
         sleep(0.01) # sleep 10 ms
-      sleep(.05)
+      
       pwm2.start(100)
       for dc in range(100,-1,-1):
         pwm2.ChangeDutyCycle(dc)
         sleep(0.01)
-      sleep(.05)
+      
     if button2pressed == False:
       pass
 
