@@ -22,7 +22,7 @@ def button_callback(channel):
     sleep(0.01) # sleep 10 ms
   sleep(.2)
   pwm.start(100)
-  for dc in range(100,0):
+  for dc in range(100,-1,-1):
     pwm.ChangeDutyCycle(dc)
     sleep(0.01)
   sleep(.2)
