@@ -30,7 +30,7 @@ def button_callback(channel):
       pwm1.ChangeDutyCycle(dc)
       sleep(0.01)
   
-  elif channel == in2:
+  if channel == in2:
       pwm2.start(0) # initiate PWM at 0% duty cycle
       for dc in range(101): # loop duty cycle from 0 to 100
         pwm2.ChangeDutyCycle(dc) # set duty cycle
