@@ -4,9 +4,9 @@ led1, led2, led3 = 4, 17, 27
 gpio.setmode(gpio.BCM) # Use physical pin numbering
 gpio.setup(led1, gpio.OUT)
 
-def button_callback(channel, int):
+def button_callback(channel, led):
     print("Button was pushed!")
-    gpio.output(int, 1)
+    gpio.output(led, 1)
 gpio.setwarnings(False) # Ignore warning for now
 gpio.setup(20, gpio.IN, pull_up_down=gpio.PUD_DOWN) # Set pin 20 to be an input pin and set initial value to be pulled low (off)
 
