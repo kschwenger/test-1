@@ -20,7 +20,7 @@ def button_callback(channel):
   elif pressed == False:
     pressed = True
 
-  while pressed = True:
+  while pressed == True:
     print("Button was switched on pin %d" % channel)
     pwm.start(0) # initiate PWM at 0% duty cycle
     for dc in range(101): # loop duty cycle from 0 to 100
