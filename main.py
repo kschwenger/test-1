@@ -2,7 +2,8 @@ import RPi.GPIO as gpio # Import Raspberry Pi GPIO library
 from time import sleep
 gpio.setwarnings(False) # Ignore warning for now
 
-buttonpressed = False
+button1pressed = False
+button2pressed = False
 in1, in2 = 20, 21
 led1, led2, led3 = 4, 27, 13
 
@@ -13,28 +14,47 @@ gpio.setup(led1, gpio.OUT)
 gpio.setup(led2, gpio.OUT)
 gpio.setup(led3, gpio.OUT)
 
-pwm = gpio.PWM(led1, 100) # create PWM object @ 100 Hz
+pwm1 = gpio.PWM(led1, 100) # create PWM object @ 100 Hz
+pwm2 = gpio.PWM(led2, 100) # create PWM NEED to add this
 
 def button_callback(channel):
   print("Button was switched for pin %d" % channel)
 
-  global buttonpressed 
-  buttonpressed = not buttonpressed
+  if channel == in1:
+    global button1pressed 
+    button1pressed = not button1pressed
 
-  while buttonpressed == True:
-    pwm.start(0) # initiate PWM at 0% duty cycle
-    for dc in range(101): # loop duty cycle from 0 to 100
-      pwm.ChangeDutyCycle(dc) # set duty cycle
-      sleep(0.01) # sleep 10 ms
-    sleep(.1)
-    pwm.start(100)
-    for dc in range(100,-1,-1):
-      pwm.ChangeDutyCycle(dc)
-      sleep(0.01)
-    sleep(.1)
-  if buttonpressed == False:
-    pass
+    while button1pressed == True:
+      pwm1.start(0) # initiate PWM at 0% duty cycle
+      for dc in range(101): # loop duty cycle from 0 to 100
+        pwm1.ChangeDutyCycle(dc) # set duty cycle
+        sleep(0.01) # sleep 10 ms
+      sleep(.05)
+      pwm1.start(100)
+      for dc in range(100,-1,-1):
+        pwm1.ChangeDutyCycle(dc)
+        sleep(0.01)
+      sleep(.05)
+    if button1pressed == False:
+      pass
+  
+  elif channel == in2:
+    global button2pressed 
+    button2pressed = not button2pressed
 
+    while button2pressed == True:
+      pwm2.start(0) # initiate PWM at 0% duty cycle
+      for dc in range(101): # loop duty cycle from 0 to 100
+        pwm2.ChangeDutyCycle(dc) # set duty cycle
+        sleep(0.01) # sleep 10 ms
+      sleep(.05)
+      pwm2.start(100)
+      for dc in range(100,-1,-1):
+        pwm2.ChangeDutyCycle(dc)
+        sleep(0.01)
+      sleep(.05)
+    if button2pressed == False:
+      pass
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 on BOTH
 gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 on BOTH
