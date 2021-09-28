@@ -21,7 +21,7 @@ def button_callback(channel): # callback function for triangle waveforms when bu
     pwm1.start(0) # initiate PWM at 0% duty cycle
     for dc in range(101): # loop duty cycle from 0 to 100
       pwm1.ChangeDutyCycle(dc) # set duty cycle
-      sleep(0.005) # sleep 5 ms (5*100 = .5 seconds)
+      sleep(0.005) # sleep 5 ms (.005*100 = .5 )
     pwm1.start(100) # initiate pwm at 100% duty cycle
     for dc in range(100,-1,-1): # loop duty cycle from 100 to 0
       pwm1.ChangeDutyCycle(dc)
