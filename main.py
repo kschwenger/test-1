@@ -18,7 +18,8 @@ pwm = gpio.PWM(led1, 100) # create PWM object @ 100 Hz
 def button_callback(channel):
   print("Button was switched for pin %d" % channel)
 
-  global buttonpressed = not buttonpressed
+  global buttonpressed 
+  buttonpressed = not buttonpressed
 
   if buttonpressed == True:
     pwm.start(0) # initiate PWM at 0% duty cycle
