@@ -17,10 +17,12 @@ pwm = gpio.PWM(led1, 100) # create PWM object @ 100 Hz
 def button_callback(channel):
   print("Button was switched on pin %d" % channel)
   pwm.start(0) # initiate PWM at 0% duty cycle
-  while 1:
-    for dc in range(101): # loop duty cycle from 0 to 100
-      pwm.ChangeDutyCycle(dc) # set duty cycle
-      sleep(0.01) # sleep 10 ms
+  for dc in range(101): # loop duty cycle from 0 to 100
+    pwm.ChangeDutyCycle(dc) # set duty cycle
+    sleep(0.01) # sleep 10 ms
+  for dc in range(100,0):
+    pwm.ChangeDutyCycle(dc)
+    sleep.01
 
 gpio.add_event_detect(in1,gpio.BOTH,callback=button_callback) # Setup event on pin 20 rising edge
 gpio.add_event_detect(in2,gpio.BOTH,callback=button_callback) # Setup event on pin 21 rising edge
